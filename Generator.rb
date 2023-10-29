@@ -4,11 +4,12 @@ def generate_password(length)
   password = (0...length).map { characters[rand(characters.length)] }.join
 end
 
-# Метод для сохранения пароля на рабочем столе
-def save_password_to_desktop(password, difficulty)
-  desktop_path = File.join(File.expand_path('~/Desktop'), "Password_#{difficulty}.txt")
-  File.open(desktop_path, 'w') { |file| file.write(password) }
-  puts "Пароль сохранен на рабочем столе в файле: Password_#{difficulty}.txt"
+# Метод для сохранения пароля в текущем рабочем каталоге
+def save_password_to_current_directory(password, difficulty)
+  current_path = Dir.pwd
+  file_path = File.join(current_path, "Password_#{difficulty}.txt")
+  File.open(file_path, 'w') { |file| file.write(password) }
+  puts "Пароль сохранен в текущем рабочем каталоге в файле: Password_#{difficulty}.txt"
 end
 
 # Метод для выбора уровня сложности пароля
@@ -37,7 +38,7 @@ puts "Введите длину пароля (количество символ�
 length = gets.chomp.to_i
 
 password = generate_password(length)
-save_password_to_desktop(password, difficulty)
+save_password_to_current_directory(password, difficulty)
 
 puts "Пароль: #{password}"
 puts "Уровень сложности: #{difficulty}"
